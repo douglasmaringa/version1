@@ -1,0 +1,44 @@
+.product-card{
+    padding: 10px;
+    max-width: 375px;
+    max-height: 460px;
+    margin-bottom: 10px;
+}
+.product-card:hover{
+    background-color: white;
+   border: 2px whitesmoke solid;
+}
+.product-card h3{
+    font-weight: 300;
+    font-size: 18px;
+}
+.product-card span{
+    font-weight: 500;
+    margin-top: 5px;
+}
+.product-image{
+    position: relative;
+      top: 0;
+      left: 0;
+}
+.fishes
+    {
+        position: relative;
+        top: 0;
+        left: 0;
+        
+    }
+    .fish
+    {
+        position: absolute;
+        top: 300px;
+        left: 270px;
+    
+    }
+    .fish:hover{
+        cursor: pointer;
+        border: 3px solid rgb(0, 255, 89);
+        border-radius: 100%;
+    }
+  
+    

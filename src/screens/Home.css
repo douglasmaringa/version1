@@ -1,0 +1,13 @@
+.body{
+    background-color: #FFFFFF;;
+}
+.home h2{
+    font-weight: 400;
+    font-size: 42px;
+    margin-left: 80px;
+}
+.home-card{
+    margin-left: 80px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
