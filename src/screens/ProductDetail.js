@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from "react-redux";
 import "./productdetail.css"
-import {addToCartSuccess} from "../slice/cart"
+import {addToCartSuccess,changeCurrency} from "../slice/cart"
 import parse from "html-react-parser"
 
 
@@ -117,7 +117,25 @@ class ProductDetail extends Component {
           </div>
 
 
-          <h1>Price:<br/><span>${this.props.location.state.prices[0].amount}</span></h1>
+          <h1>Price:<br/><span>
+          {this.props.location.state.prices.map((e)=>(
+                <>
+                 {(() => {
+        switch (e?.currency?.label) {
+          case this.props.currency.currency:   return (<>
+          {e?.currency?.symbol}{e?.amount}
+           </>);
+          
+          default:      return (<>
+          
+           
+            </>);
+        }
+      })()}
+                </>
+              ))}
+           
+            </span></h1>
          <button onClick={()=>{addToCart(this.props.location.state)}} className='green-button'>ADD TO CART</button>
          <p>{parse(this.props.location.state.description)}</p>
         </div>
@@ -128,8 +146,8 @@ class ProductDetail extends Component {
 
 const mapStateToProps = (state) => ({
   cart: state.cart.cart,
- 
+  currency:state.cart.currency
 });
 
-export default connect(mapStateToProps, { addToCartSuccess })(ProductDetail);
+export default connect(mapStateToProps, { addToCartSuccess,changeCurrency })(ProductDetail);
 

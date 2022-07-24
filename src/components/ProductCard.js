@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {Link } from 'react-router-dom';
 import { connect } from "react-redux";
-import {addToCartSuccess} from "../slice/cart"
+import {addToCartSuccess,changeCurrency} from "../slice/cart"
 import "./productcard.css"
 
 class ProductCard extends Component {
@@ -30,7 +30,26 @@ class ProductCard extends Component {
           </div>
          {
            this.props.data.prices?(<>
-            <Link to={{pathname: `/details`,state: this.props.data}}><h3>{this.props.data.name} <br/><span>${this.props.data.prices[0].amount}</span></h3></Link>
+            <Link to={{pathname: `/details`,state: this.props.data}}><h3>{this.props.data.name} <br/><span>
+            {this.props.data.prices.map((e)=>(
+                <>
+                 {(() => {
+        switch (e?.currency?.label) {
+          case this.props.currency.currency:   return (<>
+          {e?.currency?.symbol}{e?.amount}
+           </>);
+          
+          default:      return (<>
+          
+           
+            </>);
+        }
+      })()}
+                </>
+              ))}
+           
+              
+              </span></h3></Link>
      
            </>):(<></>)
          }
@@ -39,8 +58,9 @@ class ProductCard extends Component {
   }
 }
 const mapStateToProps = (state) => ({
-  cart: state.cart.cart
+  cart: state.cart.cart,
+  currency:state.cart.currency
 });
 
-export default connect(mapStateToProps, { addToCartSuccess })(ProductCard);
+export default connect(mapStateToProps, { addToCartSuccess ,changeCurrency})(ProductCard);
 

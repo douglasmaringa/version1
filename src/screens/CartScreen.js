@@ -125,7 +125,27 @@ componentDidMount() {
               <li key={item.id}>
               <div  className='cart-card'>
               <div className='cart-left'>
-              <h1 style={{fontWeight:"bold",fontSize:"26px",marginTop:"25px"}}>{item.id} <br/><span>{item.name}</span><br/> ${item.price[0].amount}</h1>
+              <h1 style={{fontWeight:"bold",fontSize:"26px",marginTop:"25px"}}>{item.id} <br/><span>{item.name}</span><br/> 
+              {item.price.map((e)=>(
+                <>
+                 {(() => {
+        switch (e?.currency?.label) {
+          case this.props.currency.currency:   return (<>
+          {e?.currency?.symbol}{e?.amount}
+           </>);
+          
+          default:      return (<>
+          
+           
+            </>);
+        }
+      })()}
+                </>
+              ))}
+              
+            
+              
+              </h1>
              
               {item?.sizes?.length > 0?
            (<>
