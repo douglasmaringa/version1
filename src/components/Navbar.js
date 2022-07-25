@@ -3,18 +3,32 @@ import { Link } from 'react-router-dom'
 import "./navbar.css"
 import {changeCurrency} from "../slice/cart"
 import { connect } from "react-redux";
-
+import { Modal } from 'react-modal-overlay'
+import 'react-modal-overlay/dist/index.css'
+import Mini from '../screens/Mini';
 
 
 class Navbar extends Component{
+    constructor(props){
+        super(props)
+        this.state = {showModal: false};
+    }
     
     render(){
+        //open cart overlay
+       const toggleModal = () => {
+        
+            this.setState({
+              showModal: !this.state.showModal
+            })
+          }
+
         //pick a currency
     const curr = (currency)=>{
         this.props.changeCurrency({currency:currency})
         
     }
-        console.log(this.props.currency)
+        console.log(this.props.cart)
     return(
             <div>
                 <div className="navbar">
@@ -49,7 +63,7 @@ class Navbar extends Component{
                 
             </>);
         }
-      })()}
+      })()}                
                           <div class="dropdown-content">
                           <p onClick={()=>{curr({currency:"USD"})}} className='link'>USD</p>
                           <p onClick={()=>{curr({currency:"GBP"})}} className='link'>GBP</p>
@@ -58,9 +72,29 @@ class Navbar extends Component{
                           <p onClick={()=>{curr({currency:"RUB"})}} className='link'>RUB</p>
                           </div>
                           </div>
-                        <li className="navbar-right"><Link to="/cart"><img src="/cart.png" alt="" /></Link></li>
+
+                         
+                        
+                        
+                         
+                        <li className="navbar-right"><a onClick={toggleModal} to="/cart"><img src="/cart.png" alt="" /></a></li>
+                                        
+                         {
+                            this.state.showModal?(<><div class="modal-footer-small">
+                            <div class="ui-modal-body">
+                            <button style={{width:"50px",marginLeft:"auto"}} onClick={()=>{toggleModal()}}>close</button>
+                                <Mini/>
+                            
+                            </div>
+                          </div></>):(<></>)
+                         }
+
                     </ul>
                 </div>
+                <div >
+        
+       
+      </div>
             </div>
    
         
@@ -69,7 +103,8 @@ class Navbar extends Component{
 }
 
 const mapStateToProps = (state) => ({
-    currency:state.cart.currency
+    currency:state.cart.currency,
+    cart: state.cart.cart,
   });
   
   export default connect(mapStateToProps, { changeCurrency })(Navbar);

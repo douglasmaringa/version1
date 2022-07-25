@@ -12,9 +12,10 @@ class ProductCard extends Component {
   render() {
     console.log(this.props.cart)
     const addToCart = (data)=>{
-      this.setState({item:{id:data.id,name:data.name,price:data.prices,attributes:data.attributes} });
-      this.props.addToCartSuccess({id:data.id,name:data.name,price:data.prices,attributes:data.attributes,quantity:1})
-  }
+      const e = data;
+      this.setState({item:{id:e.id,name:e.name,price:e.prices,attributes:e.attributes} });
+        this.props.addToCartSuccess({id:e.id,name:e.name,price:e.prices,gallery:e.gallery,attributes:e.attributes,quantity:1,sizes:this.state.sizes,colors:this.state.colors,pickedSize:this.state.pickedSize,pickedColor:this.state.pickedColor})
+    }
     return (
       <div className='product-card'>
           <div className='product-image'>

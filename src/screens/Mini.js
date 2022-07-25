@@ -7,7 +7,7 @@ import {removeFromCart,incrementQuantity,decrementQuantity,changeCurrency} from 
 import { Link,withRouter } from 'react-router-dom'
 
 
-class CartScreen extends Component {
+class Mini extends Component {
   constructor(props){
     super(props)
     this.state = {data: [],item:{},total:0};
@@ -120,12 +120,12 @@ componentDidMount() {
     (  
         this.props.cart.map(item=>{
             return(
-      <div className='cartscreen'>
+      <div className='cartscreen' >
 
               <li key={item.id}>
               <div  className='cart-card'>
               <div className='cart-left'>
-              <h1 style={{fontWeight:"bold",fontSize:"26px",marginTop:"25px"}}>{item.id} <br/><span>{item.name}</span><br/> 
+              <h1 style={{fontWeight:"bold",fontSize:"18px"}}>{item.id} <br/><span>{item.name}</span><br/> 
               {item.price.map((e)=>(
                 <>
                  {(() => {
@@ -159,8 +159,6 @@ componentDidMount() {
           
           default:      return (<>
           
-          <button  className='normal-button'>{e.displayValue}</button>
-           
             </>);
         }
       })()}
@@ -182,7 +180,6 @@ componentDidMount() {
           
           default:      return (<>
           
-          <button  className='normal-button1' style={{backgroundColor:e.displayValue,border:"solid"}}></button>
            
             </>);
         }
@@ -194,13 +191,13 @@ componentDidMount() {
               </div>
 
               <div className='cart-right'>
-                <div className='cart-right-left'>
+                <div className='cart-right-left' >
                  <button onClick={()=>{add(item)}} className='normal-button2'>+</button>
                     <p>{item.quantity}</p>
                   <button onClick={()=>{subtract(item)}} className='normal-button2'>-</button>
                 </div>
                 <div className='cart-right-right'>
-                    <img src={item?.gallery[0]} width={140} height={180} alt="" />
+                    <img src={item?.gallery[0]} width={140} height={160} alt="" />
                 </div>
               </div>
           </div>
@@ -215,15 +212,15 @@ componentDidMount() {
            )
      return(
           <div className='cartscreen' >
-             <h1 style={{marginLeft:"50px"}}>Cart</h1>
-           
+            
+             <h1 style={{fontWeight:"lighter",fontSize:"24px",marginLeft:"50px"}}>My Bag:{this.props.cart.length} items</h1>
+                       
                       {addedItems}
               
                       
                       <div  style={{marginLeft:"50px"}}>
-                        <h1 style={{fontWeight:"lighter",fontSize:"24px"}}>Quantity:{this.props.cart.length}</h1>
-                        <h1 style={{fontWeight:"lighter",fontSize:"24px"}}>Total: {this.state.total.toFixed(2)}</h1>
-                        <button  style={{width:"250px",height:"40px",color:"white",backgroundColor:"#5ECE7B",fontWeight:"600"}} >ORDER</button>
+                         <h1 style={{fontWeight:"lighter",fontSize:"24px"}}>Total: {this.state.total.toFixed(2)}</h1>
+                        <Link to="/cart"  style={{width:"400px",height:"40px",padding: "10px",color:"white",backgroundColor:"#5ECE7B",fontWeight:"600"}} >View Main Cart</Link>
          
                       </div>
           </div>
@@ -237,5 +234,5 @@ const mapStateToProps = (state) => ({
   currency:state.cart.currency
 });
 
-export default connect(mapStateToProps, { increment, decrement,removeFromCart,incrementQuantity,decrementQuantity,changeCurrency })(CartScreen);
+export default connect(mapStateToProps, { increment, decrement,removeFromCart,incrementQuantity,decrementQuantity,changeCurrency })(Mini);
 
